@@ -1,6 +1,6 @@
 <?php
 // +----------------------------------------------------------------------
-// | 
+// | 异常的基类
 // +----------------------------------------------------------------------
 // | author    武安y<yaobin24@126.com>
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace Exception;
 use ReflectionClass;
 use RuntimeException;
 
-class BaseException extends RuntimeException{
+class BaseException extends RuntimeException {
     /**
      * new exception
      *
@@ -36,7 +36,6 @@ class BaseException extends RuntimeException{
 
             foreach (explode("\n", $rClass->getDocComment()) as $line) {
                 $line = trim($line, " \t\n\r\0\x0B*");
-
                 if (preg_match_all($regex, $line, $matches, PREG_SET_ORDER, 0)) {
                     [$_, $exceptionName, $exceptionMethodName, $firstParamName, $exceptionCode, $secondParamName, $exceptionText] = $matches[0];
                     if ($exceptionName != $rClass->getShortName()) {
@@ -65,7 +64,7 @@ class BaseException extends RuntimeException{
             } elseif (is_numeric($arguments[0])) {
                 $exceptionCode = (int)$arguments[0];
             } else {
-                var_dump('unknown code type');die;
+                // TODO: log —— unknown code type
             }
         } else if (count($arguments) == 2) {
             $exceptionCode = (int)$arguments[0];
